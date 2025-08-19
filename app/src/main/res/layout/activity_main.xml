@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="Mand.ro"
+        app:titleTextColor="@color/white"
+        android:theme="?attr/actionBarTheme" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="IP Address:"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/etIpAddress"
+                android:layout_width="260dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:hint="192.168.0.176"
+                android:text="192.168.0.176"
+                android:textSize="24dp"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:background="@drawable/box_border"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Eye distance:"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <SeekBar
+                android:id="@+id/eyeDistance"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="30dp"
+                android:max="34"
+                android:progress="17"
+                android:progressTint="@color/navy"
+                android:thumbTint="@color/navy"
+                android:progressDrawable="@drawable/custom_seekbar_progress"
+                android:thumb="@drawable/custom_thumb" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distorted:"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+                <Switch
+                android:id="@+id/switchDistorted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumbTint="@color/navy"
+                android:trackTint="@color/navy"
+                android:layout_gravity="center"
+                android:textOff="OFF"
+                android:textOn="ON"
+                android:checked="false"
+                android:padding="16dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSet"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:text="Set"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:text="Start"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
