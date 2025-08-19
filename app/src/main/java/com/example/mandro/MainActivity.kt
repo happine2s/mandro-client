@@ -26,45 +26,30 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        // SeekBar 값 변경 리스너 설정
-        binding.eyeDistance.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                // SeekBar의 현재 progress 값을 eyeDistance로 업데이트
-                eyeDistance = progress.toString()
-            }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // SeekBar를 조작하기 시작했을 때 동작
-            }
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // SeekBar 조작을 멈췄을 때 동작
-            }
-        })
-
         requestQueue = Volley.newRequestQueue(this)
 
-        val etIpAddress = binding.etIpAddress
-        val distorted = binding.switchDistorted
-
-        binding.btnSet.setOnClickListener {
-            val distortedValue = if (distorted.isChecked) "true" else "false"
-            sendValuesToRaspberryPi(eyeDistance, distortedValue, etIpAddress.text.toString())
-            Toast.makeText(this, "값이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-
-        }
-
-        // 버튼 클릭 시 IP 주소 넘겨주고, VRActivity로 이동
         binding.btnStart.setOnClickListener {
-            sendGetRequestToRaspberryPi(etIpAddress.text.toString())
-            val intent = Intent(this, VRActivity::class.java)
-            intent.putExtra("raspberry_ip", etIpAddress.text.toString())
-            intent.putExtra("stream_path", "/")
-            startActivity(intent)
+            val ip = binding.etIpAddress.text.toString().trim()
+            val port = binding.etPort.text.toString().trim().ifEmpty { "8011" }
+
+            if (ip.isEmpty()) {
+                Toast.makeText(this, "IP를 입력하세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val portNum = port.toIntOrNull()
+            if (portNum == null || portNum !in 1..65535) {
+                Toast.makeText(this, "포트가 올바르지 않습니다", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val url = "http://$ip:$port/"
+            startActivity(Intent(this, CameraActivity::class.java).putExtra("url", url))
         }
 
     }
 
-    private fun sendValuesToRaspberryPi(eyeDistance: String, distorted: String, ipAddress: String) {
-        val url = "http://${ipAddress}:8011/config"
+    private fun sendValuesToRaspberryPi(eyeDistance: String, distorted: String, ipAddress: String, port: String) {
+        val url = "http://${ipAddress}:${port}/config"
         val stringRequest = object : StringRequest(Request.Method.POST, url,
             { response -> Log.d("Response", response) },
             { error -> Log.e("Error", error.toString()) }) {
@@ -77,26 +62,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         requestQueue.add(stringRequest)
+
     }
-
-    private fun sendGetRequestToRaspberryPi(ipAddress: String) {
-        val url = "http://${ipAddress}:8011/"
-
-        val stringRequest = StringRequest(
-            Request.Method.GET,
-            url,
-            { response ->
-                Log.d("Response", response) // 서버 응답 로그
-            },
-            { error ->
-                Log.e("Error", error.toString()) // 에러 로그
-            }
-        )
-
-        // 요청을 큐에 추가
-        requestQueue.add(stringRequest)
-    }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)

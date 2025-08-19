@@ -20,7 +20,7 @@
             android:name=".UdpActivity"
             android:exported="false" />
         <activity
-            android:name=".VRActivity"
+            android:name=".CameraActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
