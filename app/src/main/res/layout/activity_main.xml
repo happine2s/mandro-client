@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="IP address"
+                android:text="IP Address"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
 
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="port"
+                android:text="Port"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
 
@@ -84,7 +84,7 @@
                 android:id="@+id/btnStart"
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
-                android:text="get started"
+                android:text="START"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
